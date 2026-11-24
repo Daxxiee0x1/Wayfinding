@@ -1,0 +1,62 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Inter:Regular';
+  src: url('https://static.figma.com/font/Inter_1') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Landmark Guide brand palette (colour wheel):
+   navy base + champagne gold (warm complement) + route orange (analogous to gold, max visibility).
+   Bright orange/gold are for lines, fills and dark backgrounds; the *-ink variants are for text on light backgrounds.
+   Functional colours: green = exit/stairs, red = you are here / warnings, blue = info/parking (see src/palette.ts). */
+@theme {
+  --color-brand-navy: #0e1a2b;
+  --color-brand-ink: #16243a;
+  --color-brand-gold: #b08d57;
+  --color-brand-sand: #f3ede3;
+  --color-brand-route: #f97316;
+  --color-brand-route-ink: #c2410c;
+  --color-brand-gold-ink: #8a6a37;
+  --color-way-exit: #16a34a;
+  --color-way-emergency: #dc2626;
+  --color-way-info: #2563eb;
+  --color-way-zone: #7c3aed;
+}
+
+@keyframes lg-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes lg-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.lg-enter { animation: lg-fade-up 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.lg-fade { animation: lg-fade 0.4s ease both; }
+
+/* 3D loading card: held back briefly so quick floor switches never flash it */
+.lg-load { animation: lg-fade 0.25s ease 120ms both; }
+@keyframes lg-shimmer {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.lg-shimmer { animation: lg-shimmer 1.2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lg-enter, .lg-fade { animation: none; }
+  .lg-load { animation: lg-fade 0.01s linear 120ms both; }
+  .lg-shimmer { animation: none; opacity: 0.7; }
+}
+
+/* app is full-screen: only inner panels scroll, never the page itself */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
